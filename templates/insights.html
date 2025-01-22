@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insights</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Insights and Features</h1>
+        <ul>
+            <li>Upload a TTL file and view its contents in a table format.</li>
+            <li>See RDF data shorthands (prefixes and URIs) in a separate table.</li>
+            <li>Visualize the RDF graph to see the relationships between entities.</li>
+        </ul>
+        <a href="{{ url_for('index') }}" class="btn btn-primary">Back to Upload</a>
+        <button onclick="window.history.back()" class="btn btn-secondary">Back to the table</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,600 @@
+#  ____  _              __        __                  
+# / ___|| |_ __ _ _ __  \ \      / /_ _ _ __ ___      
+# \___ \| __/ _` | '__|  \ \ /\ / / _` | '__/ __|     
+#  ___) | || (_| | |      \ V  V / (_| | |  \__ \     
+# |____/ \__\__,_|_| _     \_/\_/_\__,_|_|  |___/     
+# |_   _| __(_)_ __ | | ___  / ___|| |_ ___  _ __ ___ 
+#   | || '__| | '_ \| |/ _ \ \___ \| __/ _ \| '__/ _ \
+#   | || |  | | |_) | |  __/  ___) | || (_) | | |  __/
+#   |_||_|  |_| .__/|_|\___| |____/ \__\___/|_|  \___|
+#             |_|                                     
+
+@prefix ex:         <http://example.com/> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema:     <http://schema.org/> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:       <http://www.w3.org/2004/02/skos/core#> .
+@prefix wd:	        <https://wikidata.org/wiki/> .
+
+
+#------------------
+#Checklist
+#------------------
+# Make the species in the example.org
+# Update the tables in the documentation, I mean the range and what not
+
+#------------------
+#Class Definitions
+#------------------
+
+ex:Jedi rdf:type rdf:Class ; 
+    rdfs:subClassOf schema:Person ;
+    skos:exactMatch wd:Q51724 ; # Jedi
+    schema:name "Jedi" ;
+    schema:description "A member of the Jedi Order, dedicated to the principles of the Force." .
+
+ex:Grandmaster rdf:type rdf:Class ;
+    rdfs:subClassOf ex:Jedi ;
+    schema:name "Grandmaster" ;
+    schema:description "The highest-ranking Jedi, responsible for leading the Jedi Order." .
+
+ex:JediKnight rdf:type rdf:Class ;
+    rdfs:subClassOf ex:Jedi ;
+    schema:name "Jedi Knight" ;
+    schema:description "A fully trained Jedi who has completed their apprenticeship and is capable of undertaking independent missions." .
+
+ex:JediMaster rdf:type rdf:Class ;
+    rdfs:subClassOf ex:Jedi ;
+    schema:name "Jedi Master" ;
+    schema:description "A Jedi who has demonstrated exceptional skill and wisdom, often responsible for training Padawans." .
+
+ex:JediCouncilMember rdf:type rdf:Class ;
+    rdfs:subClassOf ex:Jedi ;
+    schema:name "Jedi Council Member" ;
+    schema:description "A Jedi who serves on the Jedi High Council, involved in making important decisions for the Jedi Order." .
+
+ex:TrainingProgram rdf:type rdf:Class ;
+    schema:name "Training Program" ;
+    rdfs:subClassOf schema:Course ;
+    schema:description "A structured program designed to train individuals in various Jedi skills and knowledge." .
+
+schema:Vehicle rdf:type rdf:Class ;
+    rdfs:subClassOf schema:Product ;
+    schema:description "A mode of transportation used for traveling across different terrains and through space." .
+
+ex:GroundVehicle a rdf:Class ;
+    rdfs:subClassOf schema:Vehicle ;
+    schema:name "Ground Vehicle" ;
+    schema:description "A vehicle designed for travel on the ground, including speeder bikes and walkers." .
+
+ex:Starship a rdf:Class ;
+    rdfs:subClassOf schema:Vehicle ;
+    schema:name "Starship" ;
+    schema:description "A spacecraft designed for travel in space, including starfighters and cruisers." .
+
+ex:Planet a rdf:Class ;
+    schema:description "A celestial body that orbits a star and can support various forms of life." .
+
+ex:TempleInfrastructure a rdf:Class ; 
+    schema:name "Temple Infrastructure" ;
+    rdfs:subClassOf schema:Accommodation ;
+    schema:description "Buildings and structures associated with the Jedi Temple, used for various purposes including training and governance." .
+
+ex:Mission a rdf:Class ; 
+    schema:name "Mission" ; 
+    skos:broader schema:Event ; 
+    schema:description "A specific task or operation undertaken by Jedi or other entities, often involving combat or diplomacy." .
+
+ex:Artifact a rdf:Class ; 
+    schema:name "Artifact" ;
+    schema:description "An object of historical or cultural significance, often imbued with the Force or representing important Jedi heritage." .
+
+
+#------------------------------------------
+#Propiertary Properties Definitions Triples
+#------------------------------------------
+
+ex:species a rdf:Property . 
+ex:homeworld a rdf:Property ; schema:description "Origin or homeworld of an instance." .
+ex:rank a rdf:Property ; schema:description "Rank of a Jedi Member in this project" .
+ex:lightsaberColor a rdf:Property ; schema:description "Color of the Lightsaber" .
+ex:intendedLevel a rdf:Property ; schema:description "Intended training level for the training program" .
+ex:instructor a rdf:Property ; schema:description "Instructor of the training program" .
+ex:durationYears a rdf:Property ; schema:description "Duration of the training program in years" .
+ex:capacity a rdf:Property ; schema:description "Capacity of the vehicle or starship" .
+ex:region a rdf:Property ; schema:description "Region where the planet is located" .
+ex:climate a rdf:Property ; schema:description "Climate of the planet" .
+ex:population a rdf:Property ; schema:description "Population of the planet" .
+ex:primarySpecies a rdf:Property ; schema:description "Primary species inhabiting the planet" .
+ex:establishedYear a rdf:Property ; schema:description "Year the infrastructure or mission was established" .
+ex:purpose a rdf:Property ; schema:description "Purpose of the infrastructure or mission" .
+ex:facilities a rdf:Property ; schema:description "Facilities available in the infrastructure" .
+ex:objective a rdf:Property ; schema:description "Objective of the mission" .
+ex:clonesDeployed a rdf:Property ; schema:description "Number of clones deployed in the mission" .
+ex:artifactType a rdf:Property ; schema:description "Type of artifact" .
+ex:history a rdf:Property ; schema:description "History of the artifact" .
+
+# Relationship Definitions
+ex:assignedTo a rdf:Property ; schema:description "Subject is assigned to a misssion" .
+ex:pilots a rdf:Property ; schema:description "Subject pilots a starship" .
+ex:drives a rdf:Property ; schema:description "Subject drives a ground vehicle" .
+ex:inPossessionOf a rdf:Property ; schema:description "An Object in possession of a subject" .
+ex:stationedAt a rdf:Property ; schema:description "Subject stationed at a part of the temple infrastructure" .
+
+
+
+
+#----------------------------------
+# Values of the Attributes' Triples
+#----------------------------------
+
+# Species
+wd:Q5 a ex:species ; schema:name "Human" .
+wd:Q2707382 a ex:species ; schema:name "Twi'lek" .
+wd:Q112759173 a ex:species ; schema:name "Iktotchi" .
+wd:Q112829084 a ex:species ; schema:name "Tholothian" .
+wd:Q52383 a ex:species ; schema:name "Droid" .
+wd:Q106473747 a ex:species ; schema:name "Mon Calamari" .
+wd:Q112679417 a ex:species ; schema:name "Thisspiasian" .
+wd:Q112865643 a ex:species ; schema:name "Mirialan" .
+wd:Q104523281 a ex:species ; schema:name "Togruta" .
+wd:Q112845608 a ex:species ; schema:name "Kel Dor" .
+wd:Q112805507 a ex:species ; schema:name "Cerean" .
+wd:Q112845660 a ex:species ; schema:name "Nautolan" .
+wd:Q1073343 a ex:species ; schema:name "Zabrak" .
+wd:Q1750900 a ex:species ; schema:name "Wookiee" .
+ex:Kiffar a ex:species ; schema:name "Kiffar" .
+ex:Cosian a ex:species ; schema:name "Cosian" .
+ex:NearHuman a ex:species ; schema:name "NearHuman" .
+ex:Gungan a ex:species ; schema:name "Gungan" .
+ex:Kaminoan a ex:species ; schema:name "Kaminoan" .
+
+
+# Homeworlds and Artifacts
+wd:Q723764 a ex:homeworld ; schema:name "Tatooine" .
+wd:Q6598255 a ex:homeworld ; schema:name "Ryloth" .
+wd:Q126708979 a ex:homeworld ; schema:name "Iktotch" .
+wd:Q719329 a ex:homeworld ; schema:name "Coruscant" .
+wd:Q1086145 a ex:homeworld ; schema:name "Mon Cala" .
+wd:Q124785510 a ex:homeworld ; schema:name "Thisspias" .
+wd:Q12816004 a ex:homeworld ; schema:name "Shili" .
+wd:Q11681170 a ex:homeworld ; schema:name "Dorin" .
+wd:Q1062542 a ex:homeworld ; schema:name "Haruun Kal" .
+wd:Q122387752 a ex:homeworld ; schema:name "Glee Anselm" .
+wd:Q2704726 a ex:homeworld ; schema:name "Nar Shaddaa" .
+wd:Q257155 a ex:homeworld ; schema:name "Naboo" .
+wd:Q832994 a ex:homeworld ; schema:name "Kamino" .
+wd:Q754143 a ex:homeworld ; schema:name "Kashyyyk" .
+wd:Q19873 a ex:artifactType ; schema:name "Lightsaber" .
+wd:Q2261637 a ex:artifactType ; schema:name "Holocron" .
+wd:Q43533 a ex:artifactType ; schema:name "Crystal" .
+wd:Q2152457 a ex:homeworld ; schema:name "Mandalore" .
+wd:Q3148825 a ex:homeworld ; schema:name "Ilum" .
+ex:Chalacta a ex:homeworld ; schema:name "Chalacta" .
+ex:Kiffu a ex:homeworld ; schema:name "Kiffu" .
+ex:Cosia a ex:homeworld ; schema:name "Cosia" .
+ex:Stewjon a ex:homeworld ; schema:name "Stewjon" .
+
+
+
+#----------------------
+#Instances Triple Store
+#----------------------
+
+# ==================================================JEDI 
+
+ex:GMYoda rdf:type ex:Grandmaster ;
+    schema:name "Grand Master Yoda" ;
+    ex:species "Unknown" ; 
+    ex:homeworld "Unknown" ;
+    ex:rank "Grandmaster" ;
+    skos:exactMatch wd:Q51730 ;
+    ex:lightsaberColor "Green" .
+
+ex:JKAnakinSkywalker rdf:type ex:JediKnight ;
+    schema:name "Jedi Knight Anakin Skywalker" ;
+    ex:species wd:Q5 ; # Human
+    ex:homeworld wd:Q723764 ; # Tatooine
+    ex:rank "Knight" ;
+    skos:exactMatch wd:Q51752 ;
+    ex:assignedTo ex:BattleOfGeonosis ;
+    ex:pilots ex:Delta7AetherspriteClass ;
+    ex:lightsaberColor "Blue" .
+
+ex:JKAaylaSecura rdf:type ex:JediKnight ;
+    schema:name "Jedi Knight Aayla Secura" ;
+    ex:species wd:Q2707382 ; # Twi'lek
+    ex:homeworld wd:Q6598255 ; # Ryloth
+    ex:rank "Knight" ;
+    skos:exactMatch wd:Q1998913 ;
+    ex:lightsaberColor "Blue" .
+
+ex:JKSaeseeTiin rdf:type ex:JediKnight ;
+    schema:name "Jedi Knight Saesee Tiin" ;
+    ex:species wd:Q112759173 ; # Iktotchi
+    ex:homeworld wd:Q126708979 ; # Iktotch
+    ex:rank "Knight" ;
+    skos:exactMatch wd:Q2343363 ;
+    ex:lightsaberColor "Green" .
+
+ex:JKAdiGallia rdf:type ex:JediKnight ;
+    schema:name "Jedi Knight Adi Gallia" ;
+    ex:species wd:Q112829084 ; # Tholothian
+    ex:homeworld wd:Q719329 ; # Coruscant
+    ex:rank "Knight" ;
+    skos:exactMatch wd:Q2704608 ;
+    ex:lightsaberColor "Blue" .
+
+ex:JKHuyang rdf:type ex:JediKnight ;
+    schema:name "Jedi Knight Huyang" ;
+    ex:species wd:Q52383 ; # Droid
+    ex:homeworld wd:Q719329 ; # Coruscant
+    ex:rank "Knight" ;
+    skos:exactMatch wd:Q125767223 ;
+    ex:lightsaberColor "N/A" .
+
+ex:JMCilghal rdf:type ex:JediMaster ;
+    schema:name "Jedi Master Cilghal" ;
+    ex:species wd:Q106473747 ; # Mon Calamari
+    ex:homeworld wd:Q1086145 ; # Mon Cala
+    ex:rank "Master" ;
+    skos:exactMatch wd:Q3676638 ;
+    ex:lightsaberColor "Blue" .
+
+ex:JMDepaBillaba rdf:type ex:JediMaster ;
+    schema:name "Jedi Master Depa Billaba" ;
+    ex:species wd:Q5 ; # Human
+    ex:homeworld ex:Chalacta ;  
+    ex:rank "Master" ;
+    skos:exactMatch wd:Q2738825 ;
+    ex:lightsaberColor "Green" .
+
+ex:JMQuinlanVos rdf:type ex:JediMaster ;
+    schema:name "Jedi Master Quinlan Vos" ;
+    ex:species ex:Kiffar ;  
+    ex:homeworld ex:Kiffu ;  
+    ex:rank "Master" ;
+    skos:exactMatch wd:Q1188045 ;
+    ex:lightsaberColor "Green" .
+
+ex:JMOppoRancisis rdf:type ex:JediMaster ;
+    schema:name "Jedi Master Oppo Rancisis" ;
+    ex:species wd:Q112679417 ; # Thisspiasian
+    ex:homeworld wd:Q124785510 ; # Thisspias
+    ex:rank "Master" ;
+    skos:exactMatch wd:Q591031 ;
+    ex:lightsaberColor "Green" .
+
+ex:JMTionneSolusar rdf:type ex:JediMaster ;
+    schema:name "Jedi Master Tionne Solusar" ;
+    ex:species wd:Q5 ; # Human
+    ex:homeworld "Unknown" ;
+    ex:rank "Master" ;
+    skos:exactMatch wd:Q3529256 ;
+    ex:lightsaberColor "White" .
+
+ex:JMLuminaraUnduli rdf:type ex:JediMaster ;
+    schema:name "Jedi Master Luminara Unduli" ;
+    ex:species wd:Q112865643 ; # Mirialan
+    ex:homeworld "Mirial" ;
+    ex:rank "Master" ;
+    skos:exactMatch wd:Q2297428 ;
+    ex:lightsaberColor "Green" .
+
+ex:JMShaakTi rdf:type ex:JediMaster ;
+    schema:name "Jedi Master Shaak Ti" ;
+    ex:species wd:Q104523281 ; # Togruta
+    ex:homeworld wd:Q12816004 ; # Shili
+    ex:rank "Master" ;
+    skos:exactMatch wd:Q1049155 ;
+    ex:stationedAt ex:RoomOfAThousandFountains ;
+    ex:lightsaberColor "Blue" .
+
+ex:JMOBiWanKenobi rdf:type ex:JediMaster ;
+    schema:name "Jedi Master Obi-Wan Kenobi" ;
+    ex:species wd:Q5 ; # Human
+    ex:homeworld ex:Stewjon ;  
+    ex:rank "Master" ;
+    skos:exactMatch wd:Q51740 ;
+    ex:pilots ex:Eta2ActisClass ;
+    ex:lightsaberColor "Blue" .
+
+ex:JMPloKoon rdf:type ex:JediMaster ;
+    schema:name "Jedi Master Plo Koon" ;
+    ex:species wd:Q112845608 ; # Kel Dor
+    ex:homeworld wd:Q11681170 ; # Dorin
+    ex:rank "Master" ;
+    skos:exactMatch wd:Q635121 ;
+    ex:drives wd:Q2527857 ; #AT-TE
+    ex:lightsaberColor "Orange" .
+
+ex:JMMaceWindu rdf:type ex:JediMaster ;
+    schema:name "Jedi Master Mace Windu" ;
+    ex:species wd:Q5 ; # Human
+    ex:homeworld wd:Q1062542 ; # Haruun Kal
+    ex:rank "Master" ;
+    skos:exactMatch wd:Q51725 ;
+    ex:assignedTo ex:OperationKnightfall ; 
+    ex:lightsaberColor "Purple" .
+
+ex:JCKiAdiMundi rdf:type ex:JediCouncilMember ;
+    schema:name "Jedi Council Member Ki-Adi-Mundi" ;
+    ex:species wd:Q112805507 ; # Cerean
+    ex:homeworld wd:Q11681170 ; # Dorin
+    ex:rank "Council Member" ;
+    skos:exactMatch wd:Q54271 ;
+    ex:lightsaberColor "Blue" .
+
+ex:JCKitFisto rdf:type ex:JediCouncilMember ;
+    schema:name "Jedi Council Member Kit Fisto" ;
+    ex:species wd:Q112845660 ; # Nautolan
+    ex:homeworld wd:Q122387752 ; # Glee Anselm
+    ex:rank "Council Member" ;
+    skos:exactMatch wd:Q932724 ;
+    ex:lightsaberColor "Green" .
+
+ex:JCEethKoth rdf:type ex:JediCouncilMember ;
+    schema:name "Jedi Council Member Eeth Koth" ;
+    ex:species wd:Q1073343 ; # Zabrak
+    ex:homeworld wd:Q2704726 ; # Nar Shaddaa
+    ex:rank "Council Member" ;
+    skos:exactMatch wd:Q748945 ;
+    ex:lightsaberColor "Green" .
+
+
+
+# ================================================== TRAINING PROGRAMS
+ex:TP_JediInitiateTraining rdf:type ex:TrainingProgram ;
+    schema:name "Jedi Initiate Training" ;
+    schema:description "Basic training for younglings to introduce them to the Force, lightsaber skills, and Jedi Code" ;
+    ex:intendedLevel "Initiates" ;
+    ex:instructor ex:GMYoda ;
+    ex:durationYears 5 .
+
+ex:TP_PadawanTraining rdf:type ex:TrainingProgram ;
+    schema:name "Padawan Training" ;
+    schema:description "Intermediate training for Padawans under the mentorship of a Jedi Knight or Master" ;
+    ex:intendedLevel "Padawans" ;
+    ex:instructor ex:JMOBiWanKenobi ;
+    ex:durationYears 10 .
+
+ex:TP_KnightTrainingPrograms rdf:type ex:TrainingProgram ;
+    schema:name "Knight Training Programs" ;
+    schema:description "Advanced training for Jedi Knights to refine their skills and prepare them for solo missions" ;
+    ex:intendedLevel "Knights" ;
+    ex:instructor ex:JMPloKoon ;
+    ex:durationYears 5 .
+
+ex:TP_JediHealerProgram rdf:type ex:TrainingProgram ;
+    schema:name "Jedi Healer Program" ;
+    schema:description "Specialized training for Jedi with an affinity for healing to become proficient in medical and Force healing" ;
+    ex:intendedLevel "Healers" ;
+    ex:instructor ex:JMCilghal ;
+    ex:durationYears 7 .
+
+ex:TP_JediWeaponMasterProgram rdf:type ex:TrainingProgram ;
+    schema:name "Jedi Weapon Master Program" ;
+    schema:description "Elite training for Jedi who specialize in lightsaber combat and martial skills" ;
+    ex:intendedLevel "Weapon Masters" ;
+    ex:instructor ex:JMQuinlanVos ;
+    ex:durationYears 8 .
+
+# ================================================== VEHICLES 
+wd:Q2299282 rdf:type ex:GroundVehicle ;
+    schema:name "74-Z Speeder Bike" ;
+    schema:bodyType "Speeder Bike" ;
+    schema:manufacturer "Aratech Repulsor Company" ;
+    ex:capacity "1 pilot" ;
+    schema:speed "500 km/h" .
+
+wd:Q2561222 rdf:type ex:GroundVehicle ;
+    schema:name "AT-RT" ;
+    schema:bodyType "Walker" ;
+    schema:manufacturer "Rothana Heavy Engineering" ;
+    ex:capacity "1 pilot" ;
+    schema:speed "90 km/h" .
+
+wd:Q2527857 rdf:type ex:GroundVehicle ;
+    schema:name "AT-TE" ;
+    schema:bodyType "Walker" ;
+    schema:manufacturer "Rothana Heavy Engineering" ;
+    ex:capacity "20 troopers, 1 pilot, 6 gunners" ;
+    schema:speed "60 km/h" .
+
+ex:Juggernaut rdf:type ex:GroundVehicle ;
+    schema:name "Juggernaut" ;
+    schema:bodyType "Heavy Assault Vehicle" ;
+    schema:manufacturer "Kuat Drive Yards" ;
+    ex:capacity "50 troopers, 1 pilot" ;
+    schema:speed "160 km/h" .
+
+ex:UTAT rdf:type ex:GroundVehicle ;
+    schema:name "UT-AT" ;
+    schema:bodyType "Walker" ;
+    schema:manufacturer "Kuat Drive Yards" ;
+    ex:capacity "20 troopers, 1 pilot, 2 gunners" ;
+    schema:speed "60 km/h" .
+
+ex:Delta7AetherspriteClass rdf:type ex:Starship ;
+    schema:name "Delta-7 Aethersprite" ;
+    schema:bodyType "Starfighter" ;
+    schema:manufacturer "Kuat Systems Engineering" ;
+    ex:capacity "1 pilot" ;
+    schema:speed "12,000 km/h" .
+
+ex:Eta2ActisClass rdf:type ex:Starship ;
+    schema:name "Eta-2 Actis" ;
+    schema:bodyType "Starfighter" ;
+    schema:manufacturer "Kuat Systems Engineering" ;
+    ex:capacity "1 pilot" ;
+    schema:speed "15,000 km/h" .
+
+ex:ConsularClassCruiser rdf:type ex:Starship ;
+    schema:name "Consular Cruiser" ;
+    schema:bodyType "Cruiser" ;
+    schema:manufacturer "Corellian Engineering Corporation" ;
+    ex:capacity "16 crew, 91 passengers" ;
+    schema:speed "975 km/h" .
+
+wd:Q19913 rdf:type ex:Starship ;
+    schema:name "Venator Star Destroyer" ;
+    schema:bodyType "Star Destroyer" ;
+    schema:manufacturer "Kuat Drive Yards" ;
+    ex:capacity "7,400 crew, 2,000 troops, 420 starfighters" ;
+    schema:speed "975 km/h" .
+
+wd:Q5759350 rdf:type ex:Starship ;
+    schema:name "ARC-170" ;
+    schema:bodyType "Starfighter" ;
+    schema:manufacturer "Incom Corporation" ;
+    ex:capacity "1 pilot, 1 co-pilot, 1 tail gunner" ;
+    schema:speed "1,000 km/h" .
+
+# ================================================== PLANETS
+ex:Coruscant rdf:type ex:Planet ;
+    schema:name "Coruscant" ;
+    ex:region "Core Worlds" ;
+    ex:climate "Temperate" ;
+    ex:population "1 trillion" ;
+    ex:primarySpecies wd:Q5 .
+
+ex:Tatooine rdf:type ex:Planet ;
+    schema:name "Tatooine" ;
+    ex:region "Outer Rim" ;
+    ex:climate "Arid" ;
+    ex:population "200,000" ;
+    ex:primarySpecies wd:Q5 .
+
+ex:Naboo rdf:type ex:Planet ;
+    schema:name "Naboo" ;
+    ex:region "Mid Rim" ;
+    ex:climate "Temperate" ;
+    ex:population "4.5 million" ;
+    ex:primarySpecies ex:Gungan .
+
+ex:Kamino rdf:type ex:Planet ;
+    schema:name "Kamino" ;
+    ex:region "Outer Rim" ;
+    ex:climate "Rainy" ;
+    ex:population "1 billion" ;
+    ex:primarySpecies ex:Kaminoan .
+
+ex:Kashyyyk rdf:type ex:Planet ;
+    schema:name "Kashyyyk" ;
+    ex:region "Mid Rim" ;
+    ex:climate "Humid" ;
+    ex:population "45 million" ;
+    ex:primarySpecies wd:Q1750900 .
+
+# ==================================================TEMPLE INFRASTRUCTURE
+ex:JediTemple_HQ rdf:type ex:TempleInfrastructure ;
+    schema:name "Jedi Temple on Coruscant" ;
+    schema:location ex:Coruscant ;
+    ex:establishedYear "5000 BBY" ;
+    ex:purpose "Headquarters of the Jedi Order" ;
+    ex:facilities "Council chambers, training rooms, dormitories, archives, meditation gardens" .
+
+ex:JediArchives rdf:type ex:TempleInfrastructure ;
+    schema:name "Jedi Archives" ;
+    schema:location ex:Coruscant ;
+    ex:establishedYear "5000 BBY" ;
+    ex:purpose "Repository of Jedi knowledge" ;
+    ex:facilities "Holocrons, ancient texts, data terminals, research stations" .
+
+ex:JediCouncilChamber rdf:type ex:TempleInfrastructure ;
+    schema:name "Jedi Council Chamber" ;
+    schema:location ex:Coruscant ;
+    ex:establishedYear "5000 BBY" ;
+    ex:purpose "Meeting place for Jedi Council" ;
+    ex:facilities "Council seating, holographic projectors" .
+
+ex:JediTempleTrainingGrounds rdf:type ex:TempleInfrastructure ;
+    schema:name "Jedi Temple Training Grounds" ;
+    schema:location ex:Coruscant ;
+    ex:establishedYear "5000 BBY" ;
+    ex:purpose "Training area for Jedi" ;
+    ex:facilities "Sparring arenas, obstacle courses, meditation areas" .
+
+ex:RoomOfAThousandFountains rdf:type ex:TempleInfrastructure ;
+    schema:name "Room of a Thousand Fountains" ;
+    schema:location ex:Coruscant ;
+    ex:establishedYear "5000 BBY" ;
+    ex:purpose "Meditation and relaxation" ;
+    ex:facilities "Waterfalls, gardens, meditation platforms" .
+
+# ==================================================MISSIONS
+ex:BattleOfGeonosis rdf:type ex:Mission ;
+    schema:name "Battle of Geonosis" ;
+    ex:objective "Rescue Jedi and confront Separatist forces" ;
+    schema:startDate "22 BBY" ;
+    ex:clonesDeployed 200000 ;
+    schema:result "Strategic Republic victory, beginning of Clone Wars" .
+
+ex:BattleOfCoruscant rdf:type ex:Mission ;
+    schema:name "Battle of Coruscant" ;
+    ex:objective "Defend Coruscant from Separatist invasion" ;
+    schema:startDate "19 BBY" ;
+    ex:clonesDeployed 500000 ;
+    schema:location wd:Q719329 ; #Coruscant
+    schema:result "Republic victory, capture of General Grievous" .
+
+ex:SiegeOfMandalore rdf:type ex:Mission ;
+    schema:name "Siege of Mandalore" ;
+    ex:objective "Capture Darth Maul and neutralize Mandalorian forces" ;
+    schema:startDate "19 BBY" ;
+    ex:clonesDeployed 100000 ;
+    schema:result "Republic victory, end of Maul's rule on Mandalore" .
+
+ex:MissionToMustafar rdf:type ex:Mission ;
+    schema:name "Mission to Mustafar" ;
+    ex:objective "Eliminate Separatist leaders hiding on Mustafar" ;
+    schema:startDate "19 BBY" ;
+    ex:clonesDeployed 50000 ;
+    schema:result "Success, execution of Separatist leaders" .
+
+ex:OperationKnightfall rdf:type ex:Mission ;
+    schema:name "Operation Knightfall" ;
+    ex:objective "Execute Order 66 and eliminate Jedi resistance" ;
+    schema:startDate "19 BBY" ;
+    ex:clonesDeployed 1000000 ;
+    schema:result "Sith and Imperial forces successful, near extinction of Jedi Order" .
+
+# ==================================================ARTIFACTS
+ex:YodasLightsaber rdf:type ex:Artifact ;
+    schema:name "Yoda's Lightsaber" ;
+    ex:artifactType wd:Q19873 ; #Lightsaber
+    ex:homeworld "Unknown" ;
+    schema:description "Lightsaber wielded by Grand Master Yoda" ;
+    ex:inPossessionOf ex:GMYoda ;
+    ex:history "Passed down through generations of Jedi Masters" .
+
+ex:AnakinsLightsaber rdf:type ex:Artifact ;
+    schema:name "Anakin's Lightsaber" ;
+    ex:artifactType wd:Q19873 ; #Lightsaber
+    ex:homeworld wd:Q723764 ; #Tatooine
+    schema:description "Lightsaber wielded by Jedi Knight Anakin Skywalker" ;
+    ex:inPossessionOf ex:JKAnakinSkywalker ;
+    ex:history "Used during the Clone Wars and by Darth Vader" .
+
+ex:HolocronOfHeresies rdf:type ex:Artifact ;
+    schema:name "Holocron of Heresies" ;
+    ex:artifactType wd:Q2261637 ; # Holocron
+    ex:homeworld "Sith Temple" ;
+    schema:description "Sith holocron containing forbidden knowledge and dark teachings" ;
+    ex:history "Retrieved from the Sith Temple on Korriban" .
+
+ex:KyberCrystal rdf:type ex:Artifact ;
+    schema:name "Kyber Crystal" ;
+    ex:artifactType wd:Q43533 ; # Crystal
+    ex:homeworld wd:Q3148825  ; #Ilum
+    schema:description "Focus crystal used in lightsaber construction, attuned to the Force" ;
+    ex:inPossessionOf ex:JMMaceWindu ;
+    ex:history "Sought after by Force-sensitive individuals" .
+
+ex:TheDarksaber rdf:type ex:Artifact ;
+    schema:name "The Darksaber" ;
+    ex:artifactType  wd:Q19873 ; #Lightsaber 
+    ex:homeworld wd:Q2152457 ; #Mandalore
+    schema:description "Unique black-bladed lightsaber, symbol of leadership among Mandalorians" ;
+    ex:inPossessionOf ex:JKAdiGallia ; 
+    ex:history "Passed down through generations of Mandalorian leaders" .

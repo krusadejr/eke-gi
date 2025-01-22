@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualize RDF Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/vis-network@9.0.1/dist/vis-network.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        #network {
+            height: 500px;
+            border: 1px solid lightgray;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Visualize RDF Data: {{ filename }}</h1>
+
+        <!-- Updated Navigation Buttons -->
+        <div class="mb-3">
+            <button onclick="window.location.href='{{ url_for('index') }}'" class="btn btn-primary">Back to Upload</button>
+            <button onclick="window.location.href='{{ url_for('insights') }}'" class="btn btn-secondary">Insights</button>
+            <button onclick="window.history.back()" class="btn btn-info">Back</button>
+        </div>
+
+        <div id="network"></div>
+
+        <script>
+            var nodes = {{ nodes|tojson }};
+            var links = {{ links|tojson }};
+
+            var nodes = new vis.DataSet(nodes);
+            var edges = new vis.DataSet(links);
+
+            var container = document.getElementById('network');
+            var data = { nodes: nodes, edges: edges };
+            var options = {
+                height: '100%',
+                width: '100%',
+                edges: {
+                    color: { inherit: true },
+                    arrows: { to: { enabled: true, scaleFactor: 0.5 } },
+                    smooth: { type: 'continuous' }
+                },
+                physics: {
+                    enabled: true,
+                    solver: 'forceAtlas2Based'
+                },
+                layout: {
+                    randomSeed: 2
+                }
+            };
+            var network = new vis.Network(container, data, options);
+        </script>
+    </div>
+</body>
+</html>

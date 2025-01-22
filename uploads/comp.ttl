@@ -1,0 +1,53 @@
+@prefix ex: <http://example.org/org/> . 
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+ex:Department1 a ex:Department ;
+    foaf:name "Finance" ;
+    ex:head ex:JohnSmith .
+
+ex:Department2 a ex:Department ;
+    foaf:name "Marketing" ;
+    ex:head ex:JaneDoe .
+
+ex:Department3 a ex:Department ;
+    foaf:name "IT" ;
+    ex:head ex:DavidLee .
+
+ex:JohnSmith a ex:Employee ;
+    foaf:name "John Smith" ;
+    ex:position "Director" ;
+    ex:department ex:Department1 .
+
+ex:JaneDoe a ex:Employee ;
+    foaf:name "Jane Doe" ;
+    ex:position "Manager" ;
+    ex:department ex:Department2 .
+
+ex:DavidLee a ex:Employee ;
+    foaf:name "David Lee" ;
+    ex:position "Manager" ;
+    ex:department ex:Department3 .
+
+ex:Employee1 a ex:Employee ;
+    foaf:name "Alice" ;
+    ex:position "Analyst" ;
+    ex:department ex:Department1 ;
+    ex:manager ex:JohnSmith .
+
+ex:Employee2 a ex:Employee ;
+    foaf:name "Bob" ;
+    ex:position "Analyst" ;
+    ex:department ex:Department1 ;
+    ex:manager ex:JohnSmith .
+
+ex:Employee3 a ex:Employee ;
+    foaf:name "Charlie" ;
+    ex:position "Specialist" ;
+    ex:department ex:Department2 ;
+    ex:manager ex:JaneDoe .
+
+ex:Employee4 a ex:Employee ;
+    foaf:name "Diana" ;
+    ex:position "Engineer" ;
+    ex:department ex:Department3 ;
+    ex:manager ex:DavidLee .

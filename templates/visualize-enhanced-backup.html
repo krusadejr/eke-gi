@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualize - {{ filename }}</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <style>
+        .link { stroke: #999; stroke-opacity: 0.6; }
+        .node { stroke: #fff; stroke-width: 1.5px; }
+        .label { font-size: 12px; fill: #333; }
+        .link-label { font-size: 10px; fill: #666; }
+    </style>
+</head>
+<body>
+    <h1>Visualizing: {{ filename }}</h1>
+    <div class="mb-3">
+        <button onclick="window.location.href='{{ url_for('index') }}'" class="btn btn-primary">Back to Upload</button>
+        <button onclick="window.location.href='{{ url_for('insights') }}'" class="btn btn-secondary">Insights</button>
+        <button onclick="window.history.back()" class="btn btn-info">Back</button>
+    </div>
+    <input type="text" id="search" placeholder="Search nodes...">
+    <button onclick="filterNodes()">Search</button>
+    <svg width="960" height="600"></svg>
+    <script>
+        const nodes = {{ nodes | tojson }};
+        const links = {{ links | tojson }};
+
+        const svg = d3.select("svg"),
+            width = +svg.attr("width"),
+            height = +svg.attr("height");
+
+        const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+
+        const simulation = d3.forceSimulation(nodes)
+            .force("link", d3.forceLink(links).id(d => d.id).distance(100))
+            .force("charge", d3.forceManyBody().strength(-400))
+            .force("center", d3.forceCenter(width / 2, height / 2));
+
+        const link = svg.append("g")
+            .attr("class", "links")
+            .selectAll("line")
+            .data(links)
+            .enter().append("line")
+            .attr("class", "link");
+
+        const node = svg.append("g")
+            .attr("class", "nodes")
+            .selectAll("circle")
+            .data(nodes)
+            .enter().append("circle")
+            .attr("class", "node")
+            .attr("r", 10)
+            .attr("fill", d => colorScale(d.id.split(":")[0]))
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended));
+
+        const text = svg.append("g")
+            .attr("class", "labels")
+            .selectAll("text")
+            .data(nodes)
+            .enter().append("text")
+            .text(d => d.label || d.id)
+            .attr("class", "label")
+            .attr("dx", 15)
+            .attr("dy", 4);
+
+        const linkLabels = svg.append("g")
+            .attr("class", "link-labels")
+            .selectAll("text")
+            .data(links)
+            .enter().append("text")
+            .text(d => d.label)
+            .attr("class", "link-label")
+            .attr("dy", -5);
+
+        simulation.on("tick", () => {
+            link
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+
+            node
+                .attr("cx", d => d.x)
+                .attr("cy", d => d.y);
+
+            text
+                .attr("x", d => d.x)
+                .attr("y", d => d.y);
+
+            linkLabels
+                .attr("x", d => (d.source.x + d.target.x) / 2)
+                .attr("y", d => (d.source.y + d.target.y) / 2);
+        });
+
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+
+        function filterNodes() {
+            const query = document.getElementById("search").value.toLowerCase();
+            node.style("opacity", d => (d.id.toLowerCase().includes(query) || d.label.toLowerCase().includes(query)) ? 1 : 0.1);
+            link.style("opacity", d => (d.source.id.toLowerCase().includes(query) || d.target.id.toLowerCase().includes(query) || d.label.toLowerCase().includes(query)) ? 1 : 0.1);
+        }
+    </script>
+</body>
+</html>

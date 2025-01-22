@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show RDF File: {{ filename }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>RDF Data: {{ filename }}</h1>
+        
+        <!-- Navigation Buttons -->
+        <a href="{{ url_for('index') }}" class="btn btn-primary mb-3">Back to Upload</a>
+        <a href="{{ url_for('insights') }}" class="btn btn-secondary mb-3">Insights</a>
+        <a href="{{ url_for('visualize', filename=filename) }}" class="btn btn-success mb-3">Visualize</a>
+
+        <h2>RDF Data Table</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Predicate</th>
+                    <th>Object</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for link in links %}
+                    <tr>
+                        <td>{{ link.source }}</td>
+                        <td>{{ link.label }}</td>
+                        <td>{{ link.target }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
