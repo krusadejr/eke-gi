@@ -1,0 +1,31 @@
+@prefix ex: <http://example.org/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+# Book Data
+ex:Book1 a ex:Book ;
+    ex:title "The Great Adventure" ;
+    ex:author ex:Author1 ;
+    ex:published "2022-10-01" .
+
+ex:Book2 a ex:Book ;
+    ex:title "Science of Tomorrow" ;
+    ex:author ex:Author2 ;
+    ex:published "2020-06-15" .
+
+ex:Book3 a ex:Book ;
+    ex:title "The Coding Revolution" ;
+    ex:author ex:Author3 ;
+    ex:published "2021-03-25" .
+
+# Author Data
+ex:Author1 a foaf:Person ;
+    foaf:name "Alice Smith" ;
+    foaf:born "1980-05-12" .
+
+ex:Author2 a foaf:Person ;
+    foaf:name "Bob Johnson" ;
+    foaf:born "1975-09-22" .
+
+ex:Author3 a foaf:Person ;
+    foaf:name "Charlie Brown" ;
+    foaf:born "1990-02-10" .

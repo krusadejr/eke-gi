@@ -1,0 +1,37 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ex: <http://example.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+
+# Shape for Book
+ex:BookShape a sh:NodeShape ;
+    sh:targetClass ex:Book ;
+    sh:property [
+        sh:path ex:title ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path ex:author ;
+        sh:minCount 1 ;
+        sh:class ex:Author ;
+    ] ;
+    sh:property [
+        sh:path ex:published ;
+        sh:datatype xsd:date ;
+    ] .
+
+# Shape for Author
+ex:AuthorShape a sh:NodeShape ;
+    sh:targetClass ex:Author ;
+    sh:property [
+        sh:path foaf:name ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+    ] ;
+    sh:property [
+        sh:path foaf:born ;
+        sh:datatype xsd:date ;
+    ] .

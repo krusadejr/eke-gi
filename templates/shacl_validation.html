@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHACL Validation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 20px; /* Reduced padding */
+        }
+
+        .results-container {
+            margin-top: 20px;
+        }
+
+        .results-container pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>SHACL Validation</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="rdf_file">RDF File (.ttl):</label>
+                <input type="file" class="form-control-file" id="rdf_file" name="rdf_file" accept=".ttl" required>
+            </div>
+            <div class="form-group">
+                <label for="shacl_file">SHACL File (.ttl):</label>
+                <input type="file" class="form-control-file" id="shacl_file" name="shacl_file" accept=".ttl" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Validate</button>
+        </form>
+
+        <div class="results-container">
+            {% if is_valid is not none %}
+            {% if is_valid %}
+            <div class="alert alert-success" role="alert">
+                Validation Successful!
+            </div>
+            {% else %}
+            <div class="alert alert-danger" role="alert">
+                Validation Failed!
+            </div>
+            {% if results_text %}
+            <pre>{{ results_text }}</pre>
+            {% endif %}
+            {% endif %}
+            {% endif %}
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
