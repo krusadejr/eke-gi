@@ -1,0 +1,36 @@
+@prefix ex: 	<https://example.org/cureInc/> .
+@prefix schema: 	<https://schema.org/> .
+@prefix wd:	<https://wikidata.org/entity/> .
+@prefix rdf: 	<https://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:CUReInc	rdf:type			schema:Organization ;
+			schema:legalName	"CURe Inc." ;
+			schema:department	ex:IT_Department , ex:Sales ;
+			schema:member		ex:ScrumMaster ;
+			schema:employee		ex:UserNameX , ex:UserNameY .
+
+ex:IT_Department	rdf:type		schema:Organization ;
+					schema:name		"IT department" ;
+					schema:member	ex:ProdOwner_NOP , ex:Developer .
+
+ex:Sales	rdf:type		schema:Organization ;
+			schema:name		"Sales department" ;
+			schema:member	ex:ProcessMan_Sales .
+
+ex:Project_NOP	rdf:type				schema:Project ;
+				schema:name				"IT project New Order Processing" ;
+				schema:funder			ex:CUReInc ;
+				schema:subOrganization	ex:DevTeam_NOP ;
+				schema:member			ex:UserNameY .
+
+ex:ProcessMan_Sales	rdf:type			schema:OrganizationRole ;
+					schema:roleName		"Process manager Sales" .
+					
+ex:ProdOwner_NOP	rdf:type			schema:OrganizationRole ;
+					schema:roleName		"Product owner NOP" .
+
+ex:UserNameX	rdf:type				schema:Person ;
+				schema:givenName		"first name Mr. X" ;
+				schema:lastName			"last name Mr. X" ;
+				schema:hasOccupation	ex:ProcessMan_Sales;
+				schema:knows			ex:UserNameY .

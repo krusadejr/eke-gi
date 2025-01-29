@@ -14,6 +14,7 @@
         <a href="{{ url_for('index') }}" class="btn btn-primary mb-3">Back to Upload</a>
         <a href="{{ url_for('insights') }}" class="btn btn-secondary mb-3">Insights</a>
         <a href="{{ url_for('visualize', filename=filename) }}" class="btn btn-success mb-3">Visualize</a>
+        <a href="{{ url_for('sparql_query', filename=filename) }}" class="btn btn-info mb-3">Run SPARQL Query</a> <!-- New Button -->
 
         <h2>RDF Data Table</h2>
         <table class="table">
