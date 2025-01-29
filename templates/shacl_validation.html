@@ -5,6 +5,215 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SHACL Validation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container my-5">
+        <h1 class="text-center mb-4">SHACL Validation</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="rdf_file" class="form-label">RDF File (.ttl):</label>
+                <input type="file" class="form-control" id="rdf_file" name="rdf_file" accept=".ttl" required>
+            </div>
+            <div class="mb-3">
+                <label for="shacl_file" class="form-label">SHACL File (.ttl):</label>
+                <input type="file" class="form-control" id="shacl_file" name="shacl_file" accept=".ttl" required>
+            </div>
+            <div class="d-flex justify-content-center gap-2">
+                <button type="submit" class="btn btn-primary">Validate</button>
+                <a href="{{ url_for('index') }}" class="btn btn-dark">Back to Upload</a>
+            </div>
+        </form>
+
+        <div class="mt-4">
+            {% if is_valid is not none %}
+                {% if is_valid %}
+                    <div class="alert alert-success" role="alert">
+                        Validation Successful!
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger" role="alert">
+                        Validation Failed!
+                    </div>
+                    {% if results_text %}
+                        <pre class="bg-light p-3">{{ results_text }}</pre>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <footer class="bg-dark text-white py-4"><div class="container"><div class="row justify-content-center text-center"><div class="col-12 mb-2"><p class="mb-0"><strong>Universal TTL Multi-Tool</strong></p><p class="mb-0">By <strong>Ayush Kumar</strong></p></div><div class="col-12 mb-2"><p class="mb-0"><strong>2025</strong></p><p class="mb-0"><a href="https://github.com/krusadejr/eke-gi" target="_blank" class="text-white">GitHub Repository</a></p></div><div class="col-12 mb-2"><p class="mb-0">&copy; 2025 Ayush Kumar | All Rights Reserved</p></div><div class="col-12"><pre class="mb-0" style="font-size: 16px;">(✿◠‿◠)</pre></div></div></div></footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHACL Validation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #343a40;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control-file {
+            border: 1px solid #ced4da;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control-file:focus {
+            border-color: #80bdff;
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-weight: 500;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+        }
+
+        .btn-dark {
+            background-color: #343a40;
+            border: none;
+        }
+
+        .btn-dark:hover {
+            background-color: #23272b;
+            transform: translateY(-1px);
+        }
+
+        .results-container {
+            margin-top: 2rem;
+        }
+
+        .alert {
+            border-radius: 5px;
+            padding: 15px;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            border: 1px solid #e9ecef;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="display-4">SHACL Validation</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="rdf_file" class="form-label">RDF File (.ttl):</label>
+                <input type="file" class="form-control-file" id="rdf_file" name="rdf_file" accept=".ttl" required>
+            </div>
+            <div class="form-group">
+                <label for="shacl_file" class="form-label">SHACL File (.ttl):</label>
+                <input type="file" class="form-control-file" id="shacl_file" name="shacl_file" accept=".ttl" required>
+            </div>
+            <div class="d-flex justify-content-center gap-2">
+                <button type="submit" class="btn btn-primary">Validate</button>
+                <a href="{{ url_for('index') }}" class="btn btn-dark">Back to Upload</a>
+            </div>
+        </form>
+
+        <div class="results-container">
+            {% if is_valid is not none %}
+                {% if is_valid %}
+                    <div class="alert alert-success" role="alert">
+                        Validation Successful!
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger" role="alert">
+                        Validation Failed!
+                    </div>
+                    {% if results_text %}
+                        <pre>{{ results_text }}</pre>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHACL Validation</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -26,9 +235,11 @@
 </head>
 
 <body>
+    
 
     <div class="container">
-        <h1>SHACL Validation</h1>
+        <h1 class="display-4">SHACL Validation</h1>
+        
 
         <form method="POST" enctype="multipart/form-data">
             <div class="form-group">
@@ -40,6 +251,7 @@
                 <input type="file" class="form-control-file" id="shacl_file" name="shacl_file" accept=".ttl" required>
             </div>
             <button type="submit" class="btn btn-primary">Validate</button>
+            <a href="{{ url_for('index') }}" class="btn btn-dark">Back to Upload</a>
         </form>
 
         <div class="results-container">
@@ -67,4 +279,4 @@
 
 </body>
 
-</html>
+</html> -->

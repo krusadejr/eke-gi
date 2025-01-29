@@ -5,17 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Show RDF File: {{ filename }}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .button-group {
+            display: flex;
+            gap: 10px; /* Adds spacing between buttons */
+            margin-bottom: 1rem; /* Adds spacing below the button group */
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
-        <h1>RDF Data: {{ filename }}</h1>
+        <h1 class="display-4">Reading TTL File: {{ filename }}</h1>
         
         <!-- Navigation Buttons -->
-        <a href="{{ url_for('index') }}" class="btn btn-primary mb-3">Back to Upload</a>
-        <a href="{{ url_for('insights') }}" class="btn btn-secondary mb-3">Insights</a>
-        <a href="{{ url_for('visualize', filename=filename) }}" class="btn btn-success mb-3">Visualize</a>
-        <a href="{{ url_for('sparql_query', filename=filename) }}" class="btn btn-info mb-3">Run SPARQL Query</a>
-        <a href="{{ url_for('shacl_validation') }}" class="btn btn-warning mb-3">Validate with SHACL</a>
+        <div class="button-group">
+            <a href="{{ url_for('index') }}" class="btn btn-dark">Back to Upload</a>
+            <a href="{{ url_for('insights') }}" class="btn btn-dark">Insights</a>
+        </div>
+
+        <div class="button-group">
+            <a href="{{ url_for('visualize', filename=filename) }}" class="btn btn-light">Visualize</a>
+            <a href="{{ url_for('sparql_query', filename=filename) }}" class="btn btn-light">Run SPARQL Query</a>
+            <a href="{{ url_for('shacl_validation') }}" class="btn btn-warning">Validate with SHACL</a>
+        </div>
 
         <h2>RDF Data Table</h2>
         <table class="table">
@@ -37,5 +49,6 @@
             </tbody>
         </table>
     </div>
+    <footer class="bg-dark text-white py-4"><div class="container"><div class="row justify-content-center text-center"><div class="col-12 mb-2"><p class="mb-0"><strong>Universal TTL Multi-Tool</strong></p><p class="mb-0">By <strong>Ayush Kumar</strong></p></div><div class="col-12 mb-2"><p class="mb-0"><strong>2025</strong></p><p class="mb-0"><a href="https://github.com/krusadejr/eke-gi" target="_blank" class="text-white">GitHub Repository</a></p></div><div class="col-12 mb-2"><p class="mb-0">&copy; 2025 Ayush Kumar | All Rights Reserved</p></div><div class="col-12"><pre class="mb-0" style="font-size: 16px;">(✿◠‿◠)</pre></div></div></div></footer>
 </body>
 </html>

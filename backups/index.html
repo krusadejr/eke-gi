@@ -8,20 +8,18 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            padding-top: 50px; /* Adjust as needed */
-            text-align: center; /* Center the buttons */
+            padding-top: 20px;
         }
 
-        .container {
-            max-width: 600px; /* Limit container width */
+        section {
+            margin-bottom: 30px; /* Space between sections */
+            border: 1px solid #ccc; /* Light border for sections */
+            padding: 20px; /* Padding inside sections */
+            border-radius: 5px;
         }
 
-        .btn-container {
-            margin-top: 30px; /* Space above buttons */
-        }
-
-        .btn {
-            margin: 0 10px; /* Space between buttons */
+        section h2 {
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -30,15 +28,87 @@
     <div class="container">
         <h1>RDF Data Processing</h1>
 
-        <div class="btn-container">
-            <a href="/upload_form" class="btn btn-primary btn-lg">Upload TTL File</a>
-            <a href="/shacl-validation" class="btn btn-success btn-lg">SHACL Validation</a>
-        </div>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Choose TTL file:</label>
+                <input type="file" class="form-control" id="file" name="file" accept=".ttl" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+
+        {% if filename %}  <section id="data-processing">
+            <h2>Data Viewing and Querying</h2>
+            <p>Uploaded File: {{ filename }}</p>
+            <div class="mb-3">
+                <a href="/show_file/{{ filename }}" class="btn btn-info">View Data</a>
+            </div>
+            <div class="mb-3">
+                <a href="/visualize/{{ filename }}" class="btn btn-success">Visualize Graph</a>
+            </div>
+            <div>
+                <a href="/sparql_query/{{ filename }}" class="btn btn-warning">SPARQL Query</a>
+            </div>
+        </section>
+
+        <section id="shacl-validation">
+            <h2>SHACL Validation</h2>
+            <form action="/shacl-validation" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="rdf_file">RDF File (.ttl):</label>
+                    <input type="file" class="form-control" id="rdf_file" name="rdf_file" accept=".ttl" required>
+                </div>
+                <div class="form-group">
+                    <label for="shacl_file">SHACL File (.ttl):</label>
+                    <input type="file" class="form-control" id="shacl_file" name="shacl_file" accept=".ttl" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Validate</button>
+            </form>
+            {% if is_valid is not none %}
+            {% if is_valid %}
+            <div class="alert alert-success" role="alert">
+                Validation Successful!
+            </div>
+            {% else %}
+            <div class="alert alert-danger" role="alert">
+                Validation Failed!
+            </div>
+            {% if results_text %}
+            <pre>{{ results_text }}</pre>
+            {% endif %}
+            {% endif %}
+            {% endif %}
+        </section>
+
+        {% endif %}
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload RDF TTL File</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Upload RDF TTL File</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Choose TTL file:</label>
+                <input type="file" class="form-control" id="file" name="file" accept=".ttl" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+    </div>
+</body>
+</html> -->
