@@ -53,5 +53,3 @@ deactivate
 For any issues or further questions, feel free to contact me at:  
 **Email**: ayush.kumar@th-brandenburg.de
 ```
-
-You can now copy this into your `README.md` file!
