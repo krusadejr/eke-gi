@@ -47,7 +47,7 @@
                         {% for row in results.bindings %}
                         <tr>
                             {% for var in results.vars %}
-                            <td>{{ row[var].value if var in row else '' }}</td>
+                            <td>{{ row[var] | string if var in row else 'N/A' }}</td>
                             {% endfor %}
                         </tr>
                         {% endfor %}

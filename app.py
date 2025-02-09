@@ -110,6 +110,8 @@ def visualize(filename):
     nodes, links, _ = parse_ttl(file_path)
     return render_template('visualize.html', filename=filename, nodes=nodes, links=links)
 
+
+# SPARQL Queries Routing----
 @app.route('/sparql_query/<filename>', methods=['GET', 'POST'])
 def sparql_query(filename):
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
