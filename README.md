@@ -52,4 +52,3 @@ deactivate
 
 For any issues or further questions, feel free to contact me at:  
 **Email**: ayush.kumar@th-brandenburg.de
-```
