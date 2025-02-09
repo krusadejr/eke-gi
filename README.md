@@ -1,6 +1,8 @@
 Made by Ayush Kumar for the final project in the course "Enterprise Knowledge Engineering". 
 Technische Hochschule Brandenburg, Brandenburg an der Havel, BRB 14770
 
+
+```markdown
 # Project Setup Guide
 
 Here are the consolidated steps to get the app running. If there are any doubts/issues, you can be contacted without any delays under ayush.kumar@th-brandenburg.de.
@@ -16,21 +18,40 @@ Here are the consolidated steps to get the app running. If there are any doubts/
 
 ## Command Sheet:
 
-# Create virtual environment
+### Create virtual environment:
+```bash
 python -m venv venv
+```
 
-# Activate virtual environment
-# On Windows
-.\venv\Scripts\activate
-# On macOS/Linux
-source venv/bin/activate
+### Activate virtual environment:
+- **On Windows:**
+  ```bash
+  .\venv\Scripts\activate
+  ```
+- **On macOS/Linux:**
+  ```bash
+  source venv/bin/activate
+  ```
 
-# Install dependencies
+### Install dependencies:
+```bash
 pip install Flask rdflib pyshacl
+```
 
-# Run the application
+### Run the application:
+```bash
 flask run
+```
 
-# Deactivate virtual environment
+### Deactivate virtual environment:
+```bash
 deactivate
+```
 
+## Contact Information:
+
+For any issues or further questions, feel free to contact me at:  
+**Email**: ayush.kumar@th-brandenburg.de
+```
+
+You can now copy this into your `README.md` file!
