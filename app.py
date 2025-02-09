@@ -35,12 +35,16 @@ def parse_ttl(file_path):
     links = []
     node_set = set()
     namespaces = dict(g.namespaces())
-
-    def shorten_uri(uri):
-        for prefix, namespace in namespaces.items():
-            if uri.startswith(namespace):
-                return uri.replace(namespace, f"{prefix}:")
-        return uri  
+    
+    def shorten_uri(uri): 
+        return uri 
+    
+    # Function to shorten the URIs- doesn't work properly- check later. 
+    # def shorten_uri(uri):
+    #     for prefix, namespace in namespaces.items():
+    #         if uri.startswith(namespace):
+    #             return uri.replace(namespace, f"{prefix}:")
+    #     return uri  
 
     for subject in g.subjects():
         subject_str = shorten_uri(str(subject))
