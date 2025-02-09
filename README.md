@@ -5,7 +5,7 @@ Technische Hochschule Brandenburg, Brandenburg an der Havel, BRB 14770
 ```markdown
 # Project Setup Guide
 
-Here are the consolidated steps to get the app running. If there are any doubts/issues, you can be contacted without any delays under ayush.kumar@th-brandenburg.de.
+Here are the consolidated steps to get the app running. If there are any doubts/issues, I can be contacted without any delays under ayush.kumar@th-brandenburg.de.
 
 ## Steps:
 
@@ -47,8 +47,3 @@ flask run
 ```bash
 deactivate
 ```
-
-## Contact Information:
-
-For any issues or further questions, feel free to contact me at:  
-**Email**: ayush.kumar@th-brandenburg.de
